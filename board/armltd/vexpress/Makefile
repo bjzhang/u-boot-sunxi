@@ -10,9 +10,12 @@ include $(TOPDIR)/config.mk
 LIB	= $(obj)lib$(BOARD).o
 
 COBJS	:= vexpress_common.o
+ifneq ($(CONFIG_ARMV7_NONSEC)$(CONFIG_ARMV7_VIRT),)
+SOBJS	:= vexpress_smp.o
+endif
 
-SRCS	:= $(COBJS:.o=.c)
-OBJS	:= $(addprefix $(obj),$(COBJS))
+SRCS	:= $(COBJS:.o=.c) $(SOBJS:.o=.S)
+OBJS	:= $(addprefix $(obj),$(COBJS) $(SOBJS))
 
 $(LIB):	$(obj).depend $(OBJS)
 	$(call cmd_link_o_target, $(OBJS))

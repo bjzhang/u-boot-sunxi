@@ -15,4 +15,8 @@
 #include "vexpress_common.h"
 #define CONFIG_BOOTP_VCI_STRING     "U-boot.armv7.vexpress_ca15x2_tc2"
 
+#define CONFIG_SYSFLAGS_ADDR 0x1c010030
+
+#define CONFIG_ARMV7_VIRT
+
 #endif
