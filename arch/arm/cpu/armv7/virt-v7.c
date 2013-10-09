@@ -132,6 +132,8 @@ int armv7_switch_nonsec(void)
 	unsigned int reg;
 	unsigned itlinesnr, i;
 
+	cleanup_before_linux();
+
 	/* check whether the CPU supports the security extensions */
 	reg = read_id_pfr1();
 	if ((reg & 0xF0) == 0) {

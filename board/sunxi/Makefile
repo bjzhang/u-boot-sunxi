@@ -76,9 +76,13 @@ COBJS-$(CONFIG_UHOST_U1A)	+= dram_sun4i_360_1024_iow8.o
 COBJS-$(CONFIG_WOBO_I5)		+= dram_wobo_i5.o
 COBJS-$(CONFIG_XZPAD700)	+= dram_xzpad700.o
 
+ifneq ($(CONFIG_ARMV7_NONSEC)$(CONFIG_ARMV7_VIRT),)
+SOBJS                           := smp.o
+endif
+
 COBJS	:= $(COBJS-y)
-SRCS	:= $(COBJS:.o=.c)
-OBJS	:= $(addprefix $(obj),$(COBJS))
+SRCS   := $(COBJS:.o=.c) $(SOBJS:.o=.S)
+OBJS   := $(addprefix $(obj),$(COBJS) $(SOBJS))
 
 all:	$(LIB)
 

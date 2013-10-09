@@ -40,6 +40,20 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
+/* Setting the address at which secondary cores start from.
+ * SMP currently unsupported.
+ */
+void smp_set_core_boot_addr(unsigned long addr, int corenr)
+{
+       printf("WARNING: ignoring attempt to set core boot address %lx on core %d\n",
+              addr, corenr);
+}
+
+void smp_kick_all_cpus(void)
+{
+       printf("WARNING: Not kicking secondary CPUs\n");
+}
+
 /* add board specific code here */
 int board_init(void)
 {

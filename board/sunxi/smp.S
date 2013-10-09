@@ -1,8 +1,7 @@
 /*
- * (C) Copyright 2012-2013 Henrik Nordstrom <henrik@henriknordstrom.net>
- * (C) Copyright 2013 Luke Kenneth Casson Leighton <lkcl@lkcl.net>
+ * code for redirecting secondary cores to their start address
  *
- * Configuration settings for the Allwinner A20 (sun7i) CPU
+ * Copyright (c) 2013  Andre Przywara <andre.przywara@xxxxxxxxxx>
  *
  * See file CREDITS for list of people who contributed to this
  * project.
@@ -14,7 +13,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.         See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -23,26 +22,12 @@
  * MA 02111-1307 USA
  */
 
-#ifndef __CONFIG_H
-#define __CONFIG_H
+#include <config.h>
+#include <linux/linkage.h>
 
-/*
- * A20 specific configuration
- */
-#define CONFIG_SUN7I		/* sun7i SoC generation */
-
-#define CONFIG_SYS_PROMPT		"sun7i# "
-#define CONFIG_MACH_TYPE		4283
-
-#define CONFIG_ARMV7_VIRT
-
-#if defined(CONFIG_SYS_SECONDARY_ON)
-#define CONFIG_BOARD_POSTCLK_INIT 1
-#endif
-
-/*
- * Include common sunxi configuration where most the settings are
- */
-#include <configs/sunxi-common.h>
-
-#endif /* __CONFIG_H */
+/* void _smp_waitloop(unsigned previous_address); */
+ENTRY(smp_waitloop)
+       /* SMP currently unsupported */
+1:     wfi
+       b 1b
+ENDPROC(smp_waitloop)
