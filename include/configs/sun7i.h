@@ -36,6 +36,8 @@
 
 #define CONFIG_ARMV7_VIRT
 
+#define CONFIG_SYS_CLK_FREQ     24000000
+
 #if defined(CONFIG_SYS_SECONDARY_ON)
 #define CONFIG_BOARD_POSTCLK_INIT 1
 #endif
